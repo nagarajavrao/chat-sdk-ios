@@ -145,7 +145,7 @@
     
     BOOL videoEnabled = BChatSDK.videoMessage != Nil;
     BOOL imageEnabled = BChatSDK.imageMessage != Nil && BChatSDK.config.imageMessagesEnabled;
-    BOOL locationEnabled = BChatSDK.locationMessage != Nil && BChatSDK.config.locationMessagesEnabled;
+    BOOL locationEnabled = FALSE;
     
     if (imageEnabled && videoEnabled) {
         [options addObject:[[BMediaChatOption alloc] initWithType:bPictureTypeCameraVideo]];

@@ -47,10 +47,12 @@
     
     self.title = [NSBundle t:bDetails];
     
-    self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:[NSBundle t:bBack]
-                                                                             style:UIBarButtonItemStylePlain
-                                                                            target:self
-                                                                            action:@selector(backButtonPressed)];
+    UIImage *image = [NSBundle uiImageNamed:@"leftArrow.png"];
+    NSLog(@"image >>>> %@", image);
+    UIBarButtonItem *myBackButton = [[UIBarButtonItem alloc] initWithImage:image style:UIBarButtonItemStylePlain target:self action:@selector(backButtonPressed)];
+    
+    self.navigationItem.leftBarButtonItem = myBackButton;
+    self.navigationController.navigationBar.backgroundColor = [UIColor colorWithRed:114/255.0 green:54/255.0 blue:178/255.0 alpha:1];
     
     tableView.separatorColor = [UIColor colorWithRed:200/255.0 green:200/255.0 blue:204/255.0 alpha:1];
     
@@ -89,9 +91,9 @@
     if (section == bParticipantsSection) {
         return _users.count ? _users.count : 1;
     }
-    if (section == bLeaveConvoSection || section == bAddParticipantSection) {
-        return 1;
-    }
+//    if (section == bLeaveConvoSection || section == bAddParticipantSection) {
+//        return 1;
+//    }
     return 0;
 }
 
@@ -138,13 +140,13 @@
         return cell;
     }
     
-    if (indexPath.section == bAddParticipantSection) {
-        
-        // Reset the image view
-        cell.imageView.image = nil;
-        cell.textLabel.textAlignment = NSTextAlignmentCenter;
-        cell.textLabel.text = [NSBundle t:bAddParticipant];
-    }
+//    if (indexPath.section == bAddParticipantSection) {
+//
+//        // Reset the image view
+//        cell.imageView.image = nil;
+//        cell.textLabel.textAlignment = NSTextAlignmentCenter;
+//        cell.textLabel.text = [NSBundle t:bAddParticipant];
+//    }
     
     if (indexPath.section == bLeaveConvoSection) {
         
@@ -161,33 +163,33 @@
 - (void)tableView:(UITableView *)tableView_ didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     
     // The add user button
-    if (indexPath.section == bParticipantsSection) {
-        
-        if (_users.count) {
-            id<PUser> user = _users[indexPath.row];
-            
-            // Open the users profile
-            UIViewController * profileView = [BChatSDK.ui profileViewControllerWithUser:user];
-            [self.navigationController pushViewController:profileView animated:YES];
-        }
-    }
-    if (indexPath.section == bAddParticipantSection) {
-        
-        // Use initWithThread here to make sure we don't show any users already in the thread
-        // Show the friends view controller
-        UINavigationController * nav = [BChatSDK.ui friendsNavigationControllerWithUsersToExclude:_thread.users.allObjects onComplete:^(NSArray * users, NSString * groupName){
-            
-            [BChatSDK.core addUsers:users toThread:_thread].thenOnMain(^id(id success){
-                [UIView alertWithTitle:[NSBundle t:bSuccess] withMessage:[NSBundle t:bAdded]];
-                
-                [self reloadData];
-                return Nil;
-            }, Nil);
-        }];
-        [((id<PFriendsListViewController>) nav.topViewController) setRightBarButtonActionTitle:[NSBundle t: bAdd]];
-        
-        [self presentViewController:nav animated:YES completion:Nil];
-    }
+//    if (indexPath.section == bParticipantsSection) {
+//        
+//        if (_users.count) {
+//            id<PUser> user = _users[indexPath.row];
+//            
+//            // Open the users profile
+//            UIViewController * profileView = [BChatSDK.ui profileViewControllerWithUser:user];
+//            [self.navigationController pushViewController:profileView animated:YES];
+//        }
+//    }
+//    if (indexPath.section == bAddParticipantSection) {
+//
+//        // Use initWithThread here to make sure we don't show any users already in the thread
+//        // Show the friends view controller
+//        UINavigationController * nav = [BChatSDK.ui friendsNavigationControllerWithUsersToExclude:_thread.users.allObjects onComplete:^(NSArray * users, NSString * groupName){
+//
+//            [BChatSDK.core addUsers:users toThread:_thread].thenOnMain(^id(id success){
+//                [UIView alertWithTitle:[NSBundle t:bSuccess] withMessage:[NSBundle t:bAdded]];
+//
+//                [self reloadData];
+//                return Nil;
+//            }, Nil);
+//        }];
+//        [((id<PFriendsListViewController>) nav.topViewController) setRightBarButtonActionTitle:[NSBundle t: bAdd]];
+//
+//        [self presentViewController:nav animated:YES completion:Nil];
+//    }
     if (indexPath.section == bLeaveConvoSection) {
         
         [BChatSDK.core deleteThread:_thread];

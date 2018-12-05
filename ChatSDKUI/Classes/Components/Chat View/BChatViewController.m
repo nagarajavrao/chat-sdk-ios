@@ -54,6 +54,17 @@
     }
     
     [super setAudioEnabled: BChatSDK.audioMessage != Nil];
+    
+    UIImage *image = [NSBundle uiImageNamed:@"leftArrow.png"];
+    NSLog(@"image >>>> %@", image);
+    UIBarButtonItem *myBackButton = [[UIBarButtonItem alloc] initWithImage:image style:UIBarButtonItemStylePlain target:self action:@selector(goBack)];
+    
+    
+    self.navigationItem.leftBarButtonItem = myBackButton;
+}
+
+- (void)goBack {
+    [self.navigationController popViewControllerAnimated:YES];
 }
 
 -(void) updateSubtitle {

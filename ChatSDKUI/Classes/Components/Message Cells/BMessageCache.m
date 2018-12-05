@@ -63,10 +63,10 @@ static BMessageCache * cache;
     // Color
     NSString * colorString = Nil;
     if (isMine) {
-        colorString = BChatSDK.shared.configuration.messageColorMe;
+        colorString = @"7236B2";
     }
     else {
-        colorString = BChatSDK.shared.configuration.messageColorReply;
+        colorString = @"FFFFFF";
     }
 
     NSString * imageIdentifier = [NSString stringWithFormat:@"%@%@%i%f", bubbleImageName, colorString, isMine, weight];

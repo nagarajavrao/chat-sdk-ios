@@ -104,6 +104,7 @@
     
     _titleLabel.text = [NSBundle t: bThread];
     _titleLabel.textAlignment = NSTextAlignmentCenter;
+    _titleLabel.textColor = UIColor.whiteColor;
     _titleLabel.font = [UIFont boldSystemFontOfSize:_titleLabel.font.pointSize];
     
     [containerView addSubview:_titleLabel];
@@ -123,6 +124,9 @@
     _subtitleLabel.keepHorizontalCenter.equal = 0.5;
     
     [self.navigationItem setTitleView:containerView];
+    
+    
+    
 }
 
 // The options handler is responsible for displaying options to the user
